@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 
   devise_for :users
-
+  resources :posts
   resources :conversations, only: [:create] do
     member do
       post :close
