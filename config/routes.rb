@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
+
   devise_for :users
 
   resources :conversations, only: [:create] do
@@ -10,4 +11,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  #보람
+  mount ActionCable.server => '/cable'
 end
