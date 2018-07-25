@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root 'home#index'
-
+  root 'posts#index'
+  get 'home/index'
 
   devise_for :users
   resources :posts
@@ -14,6 +14,4 @@ Rails.application.routes.draw do
   
   #보람 - 실시간채팅 액션케이블
   mount ActionCable.server => '/cable'
-
-  
 end
