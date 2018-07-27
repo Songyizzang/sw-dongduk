@@ -85,14 +85,39 @@ marker.setMap(map);
   
 </script>
 
-<!-- 보람)) 작성자 -> 수정 / 삭제 버튼 보이게--> 
+<!-- 작성자 -> 수정 / 삭제 버튼 보이게--> 
 <% if current_user.id == @post.user_id %>
     <%= link_to 'Edit', edit_post_path(@post) %> 
     <%= link_to 'Destroy', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
-<!-- 보람 ))작성자 외  신청 버튼 보이게-->
+<!-- 작성자 외  신청 버튼 보이게-->
 <% else %>
-    <button>신청하기</button>
+    <% if current_user.is_apply? (@post) %>
+  <form action='/post/<%= @post.id%>/apply' method='post'>
+  <button> 신청하기 취소 </button>  
+  </form>
+  
+  <% else %>
+  <form action='/post/<%= @post.id%>/apply' method='post'>
+  <button> 신청하기</button>  
+  </form>
+  
+  <% end %>
 <%end%>
 
- 
+
+
+<br> <%= @post.applies.size %> 신청서수 <br>
+
+<!-- 글작성자만 신청서가 보이게 했습니다 -->
+<% if current_user.id == @post.user_id %>
+    <% @post.applies.each do |a| %>
+        <%= a.user_id %>
+        <% if a.matching  %> 
+            <button> 수락완료 </button>
+        <% else %>
+             <button onclick="location.href='/post/<%=@post.id%>/apply_accept/<%=a.id%>' "> 수락하기 </button>
+        <% end %>
+    <% end %>
+<% end %>
+<br>
 <%= link_to 'Back', posts_path %>

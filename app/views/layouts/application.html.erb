@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script>
+      function showHide(id) {
+         var obj = document.getElementById(id);
+         if (obj.style.display == 'none')
+           obj.style.display = 'block';
+         else
+           obj.style.display = 'none';
+      }
+</script>
     <title>주거니받거니</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -8,6 +17,14 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <a onclick="showHide('info_html')" onfocus="this.blur()"><b>알림(<%= current_user.new_notifications.unread_by(current_user).count %>)</b></a>
+        <div id="info_html" style="display:none; margin-top: 10px;">
+          <%= render partial: "new_notifications/new_notification", collection: current_user.new_notifications.unread_by(current_user) %><br>
+          <%= link_to '<b>모든 알림 지우기</b>'.html_safe, new_notifications_read_all_path %>
+        </div>
+    <% end %>
+      <br><br>
     
     <%= link_to "로그아웃", destroy_user_session_path, data: {method: "delete"} %>
    
