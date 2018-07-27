@@ -10,6 +10,11 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
    config.secret_key = '13a1df6abf30ce73fd60cb465bcfad01c4dc6be0c84f000be402008d2651e276d5261a8d8d0d1e9d5318149b1a448504b8d8b9cc4b117ff7befc5421b9329155'
   
+  # 소셜 API KEY 변수 설정 
+  config.omniauth :google_oauth2, ENV["Google_Key"], ENV["Google_Secret"]
+  config.omniauth :facebook, ENV["Facebook_Key"], ENV["Facebook_Secret"]
+  config.omniauth :naver, ENV["Naver_Key"], ENV["Naver_Secret"]
+  
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'

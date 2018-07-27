@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   root 'posts#index'
   get 'home/index'
-
-  devise_for :users
+  get 'register/info' # 로그인한 후 화면
+  
+  # 소셜 로그인 시 callbacks 지정
+  devise_for :users, controllers: { omniauth_callbacks: 'user/omniauth_callbacks' }
+  
   resources :posts
   resources :conversations, only: [:create] do
     member do

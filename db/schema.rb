@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_135648) do
+ActiveRecord::Schema.define(version: 2018_07_27_100551) do
 
   create_table "applies", force: :cascade do |t|
     t.boolean "matching"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 2018_07_25_135648) do
     t.index ["recipient_id", "sender_id"], name: "index_conversations_on_recipient_id_and_sender_id", unique: true
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
     t.index ["sender_id"], name: "index_conversations_on_sender_id"
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -74,6 +83,8 @@ ActiveRecord::Schema.define(version: 2018_07_25_135648) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "profile_img"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

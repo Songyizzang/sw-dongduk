@@ -3,6 +3,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.0'
 
+# Key 노출 방지
+gem 'figaro'
+
+gem 'bcrypt'
+
+# Omniauth Gem : 웹 어플리케이션에서 다양한 인증제공서비스를 사용할 수 있게 해주는 라이브러리
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-naver'
+
+gem 'rails_db'
+
 #알림 잼
 gem 'unread'
 
